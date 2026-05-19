@@ -1,0 +1,53 @@
+name: Fuzz
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions: {}
+
+jobs:
+  go-fuzz:
+    name: Go Fuzz
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: "Set up Go"
+        uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5 # v5.5.0
+        with:
+          go-version: "1.22"
+
+      - name: "Run Go fuzz tests"
+        working-directory: go
+        run: go test -fuzz=FuzzReverse -fuzztime=30s ./...
+
+  rust-fuzz:
+    name: Rust Fuzz
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: "Install Rust nightly"
+        uses: dtolnay/rust-toolchain@56f84321dbccf38fb67ce29ab63e4754056677e0 # nightly
+        with:
+          toolchain: nightly
+
+      - name: "Install cargo-fuzz"
+        run: cargo install cargo-fuzz
+
+      - name: "Run Rust fuzz tests"
+        working-directory: rust
+        run: cargo fuzz run fuzz_reverse -- -max_total_time=30
