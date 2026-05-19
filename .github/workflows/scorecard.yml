@@ -26,12 +26,10 @@ jobs:
     # `publish_results: true` only works when run from the default branch. conditional can be removed if disabled.
     if: github.event.repository.default_branch == github.ref_name || github.event_name == 'pull_request'
     permissions:
-      # Needed to upload the results to code-scanning dashboard.
-      security-events: write
-      # Needed to publish results and get a badge (see publish_results below).
-      id-token: write
-      # Recommended reads for private repos to avoid GraphQL/SAST gaps
-      contents: read
+      actions: read
+      security-events: write # Needed to upload the results to code-scanning dashboard.
+      id-token: write # Needed to publish results and get a badge (see publish_results below).
+      contents: read # Recommended reads for private repos to avoid GraphQL/SAST gaps.
       issues: read
       pull-requests: read
       checks: read
@@ -77,6 +75,7 @@ jobs:
       # Upload the results to GitHub's code scanning dashboard (optional).
       # Commenting out will disable upload of results to your repo's Code Scanning dashboard
       - name: "Upload SARIF"
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: github/codeql-action/upload-sarif@9e0d7b8d25671d64c341c19c0152d693099fb5ba # v4.35.5
         with:
           sarif_file: results.sarif
