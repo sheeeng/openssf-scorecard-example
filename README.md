@@ -1,5 +1,7 @@
 # openssf-scorecard-example
 
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/sheeeng/openssf-scorecard-example/badge)](https://scorecard.dev/viewer/?uri=github.com/sheeeng/openssf-scorecard-example)
+
 See:
 
 - [ossf/scorecard](https://github.com/ossf/scorecard)
