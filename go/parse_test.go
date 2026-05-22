@@ -10,8 +10,14 @@ func FuzzReverse(f *testing.F) {
 	f.Add("world")
 	f.Add("")
 	f.Fuzz(func(t *testing.T, original string) {
-		reversed := Reverse(original)
-		doubleReversed := Reverse(reversed)
+		reversed, err := Reverse(original)
+		if err != nil {
+			return
+		}
+		doubleReversed, err := Reverse(reversed)
+		if err != nil {
+			t.Errorf("reverse produced invalid UTF-8: %q", reversed)
+		}
 		if original != doubleReversed {
 			t.Errorf("double reverse produced different result: %q -> %q", original, doubleReversed)
 		}
