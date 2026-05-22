@@ -1,0 +1,4 @@
+[[IgnoredVulns]]
+# Add entries here to ignore specific vulnerabilities.
+# id = "GHSA-xxxx-xxxx-xxxx"
+# reason = "Not applicable to this project because..."
