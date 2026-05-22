@@ -72,8 +72,8 @@ jobs:
           path: results.sarif
           retention-days: 5
 
-      # Upload the results to GitHub's code scanning dashboard (optional).
-      # Commenting out will disable upload of results to your repo's Code Scanning dashboard
+      # Upload the results to GitHub's code scanning dashboard.
+      # Commenting out will disable upload of results to your repo's Code Scanning dashboard.
       - name: "Upload SARIF"
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: github/codeql-action/upload-sarif@9e0d7b8d25671d64c341c19c0152d693099fb5ba # v4.35.5
