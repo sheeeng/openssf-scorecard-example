@@ -16,7 +16,8 @@ responsibly.
 Instead, please report them via [GitHub Security Advisories][github-security-advisories].
 
 You should receive a response within 72 hours. If the vulnerability is confirmed,
-a fix will be released as soon as possible.
+a fix will be released as soon as possible, typically within 90 days of the
+initial disclosure.
 
 ## Disclosure Policy
 
